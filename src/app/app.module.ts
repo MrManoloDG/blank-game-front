@@ -9,20 +9,24 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { JoinModalComponent } from './components/main-menu/join-modal/join-modal.component';
 import { CreateModalComponent } from './components/main-menu/create-modal/create-modal.component';
 import { FormsModule } from '@angular/forms';
+import { WaitGameComponent } from './components/wait-game/wait-game.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainMenuComponent,
     JoinModalComponent,
-    CreateModalComponent
+    CreateModalComponent,
+    WaitGameComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
