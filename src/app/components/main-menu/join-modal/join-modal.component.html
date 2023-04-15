@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Create New Game</h1>
+<div mat-dialog-content>
+  <p>Enter game code</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Game code</mat-label>
+    <input matInput maxlength="6" minlength="6" [(ngModel)]="data.gameCode" (keypress)="OnlyNumbers($event)">
+  </mat-form-field>
+
+  <p>Enter a username</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="data.username">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Exit</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Create</button>
+</div>
