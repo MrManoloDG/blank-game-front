@@ -5,7 +5,9 @@
   <h4>Players</h4>
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
     <mat-card *ngFor="let user of users" fxFlex="10%" fxFlex.xs="30%" class="centered">
-        <h4>{{ user }}</h4>
+        <mat-card-content>
+          <span>{{ user }}</span>
+        </mat-card-content>
     </mat-card>
 </div>
 </div>
