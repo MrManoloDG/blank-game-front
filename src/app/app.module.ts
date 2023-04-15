@@ -11,6 +11,7 @@ import { CreateModalComponent } from './components/main-menu/create-modal/create
 import { FormsModule } from '@angular/forms';
 import { WaitGameComponent } from './components/wait-game/wait-game.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { PlayWordComponent } from './components/play-word/play-word.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MainMenuComponent,
     JoinModalComponent,
     CreateModalComponent,
-    WaitGameComponent
+    WaitGameComponent,
+    PlayWordComponent
   ],
   imports: [
     BrowserModule,
