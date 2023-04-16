@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { WaitGameComponent } from './components/wait-game/wait-game.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlayWordComponent } from './components/play-word/play-word.component';
+import { GameControllerService } from 'src/api/gameController.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,10 @@ import { PlayWordComponent } from './components/play-word/play-word.component';
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [GameControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
