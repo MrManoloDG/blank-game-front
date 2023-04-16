@@ -1,6 +1,9 @@
+<div class="centered padding-menu">
+  <button *ngIf="user===owner" mat-raised-button color="accent" (click)="startGame()">Generate game</button>
+</div>
 
 <div class="centered container">
-  <button *ngIf="!isRevealed" (click)="switchRevealed()" mat-raised-button color="primary">Tap to reveal word</button>
-  <button *ngIf="isRevealed" (click)="switchRevealed()" mat-raised-button color="accent">WORD</button>
+  <button class="btn-game" *ngIf="!isRevealed" (click)="switchRevealed()" mat-raised-button color="primary">Tap to reveal word</button>
+  <button class="btn-game" *ngIf="isRevealed" (click)="switchRevealed()" mat-raised-button color="accent">{{word}}</button>
 </div>
 
