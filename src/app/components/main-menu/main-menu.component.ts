@@ -25,6 +25,7 @@ export class MainMenuComponent {
       console.log(result);
       const response = await lastValueFrom(this.gameService.createGame(result.username));
       console.log('The dialog was closed');
+      sessionStorage.setItem('username', result.username);
       this.router.navigate([`/wait/${response}`]);
     });
   }
@@ -39,6 +40,7 @@ export class MainMenuComponent {
         uuid: result.gameCode,
         user: result.username
       }));
+      sessionStorage.setItem('username', result.username);
       this.router.navigate([`/wait/${result.gameCode}`]);
       console.log('The dialog was closed');
     });
