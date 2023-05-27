@@ -36,8 +36,13 @@ export class PlayWordComponent implements OnInit {
   }
 
   async updateGameData(){
-    const response = await lastValueFrom(this.gameService.getWord(this.uuid,this.user));
-    this.word = response;
+    lastValueFrom(this.gameService.getWord(this.uuid,this.user)).then(res => {
+      console.log(res);
+      this.word = res;
+    }, err => {
+      console.log(err);
+      this.word = err.error.text;
+    });
   }
 
   async startGame() {

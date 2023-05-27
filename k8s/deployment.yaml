@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+spec:
+  replicas: 1  # Number of replicas for the frontend pods
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: mrmanolodg/blankgamefront:latest  # Replace with your frontend image name and tag
+          ports:
+            - containerPort: 80  # Port that the frontend container will use
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  labels:
+    app: frontend
+spec:
+  ports:
+    - port: 80  # Port that the service will use
+      targetPort: 80  # Port that the frontend container uses
+  selector:
+    app: frontend
