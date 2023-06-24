@@ -1,9 +1,27 @@
-<div class="centered padding-menu">
-  <button *ngIf="user===owner" mat-raised-button color="accent" (click)="startGame()">Generate game</button>
+<div class="container-content centered-content">
+  <mat-card class="card-content centered-content padding-vertical margin-bottom">
+    <div class="centered-content padding-menu">
+      <button class="margin-btn" *ngIf="user===owner" mat-raised-button color="accent" (click)="startGame()">Generate game</button>
+      <button class="margin-btn" *ngIf="!isRevealed && user===owner" (click)="switchRevealed()" mat-raised-button color="primary">Tap to reveal word</button>
+      <button class="margin-btn" *ngIf="isRevealed && user===owner" (click)="switchRevealed()" mat-raised-button color="accent">Hide</button>
+    </div>
+
+    <div *ngIf="user!==owner" class="centered-content container-content">
+      <button class="btn-game" *ngIf="!isRevealed" (click)="switchRevealed()" mat-raised-button color="primary">Tap to reveal word</button>
+      <button class="btn-game" *ngIf="isRevealed" (click)="switchRevealed()" mat-raised-button color="accent">{{word}}</button>
+    </div>
+
+    <div *ngIf="user===owner"  fxLayout="row wrap" fxLayoutGap="16px grid" class="card-content centered">
+      <mat-card *ngFor="let user of users" fxFlex="20%" fxFlex.xs="30%" class="centered-content card-margin content-all scale-in-center">
+          <mat-card-title class="content-all user-card">
+            {{ user }}
+          </mat-card-title>
+
+          <mat-card-content *ngIf="isRevealed">{{userWordMap[user]}}</mat-card-content>
+      </mat-card>
+  </div>
+  </mat-card>
 </div>
 
-<div class="centered container">
-  <button class="btn-game" *ngIf="!isRevealed" (click)="switchRevealed()" mat-raised-button color="primary">Tap to reveal word</button>
-  <button class="btn-game" *ngIf="isRevealed" (click)="switchRevealed()" mat-raised-button color="accent">{{word}}</button>
-</div>
+
 

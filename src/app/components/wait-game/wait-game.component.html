@@ -1,15 +1,21 @@
-<div class="container padding">
+<div class="container-content padding">
+  <mat-card class="card-content centered-content padding-vertical margin-bottom">
+    <h1 class="item-fit-content ">Game Code: <b>{{gameId}}</b></h1>
+    <qrcode class="item-fit-content"  [qrdata]="joinURL" [width]="256" [errorCorrectionLevel]="'Q'" elementType='img'></qrcode>
+    <h2 class="item-fit-content ">Waiting to start the game ...</h2>
+    <button class="item-fit-content " *ngIf="user===owner" mat-raised-button color="primary" (click)="startGame()">Start Game</button>
+  </mat-card>
 
-  <h1>Game Code: <b>{{gameId}}</b></h1>
-  <h2>Waiting to start the game ...</h2>
-  <button *ngIf="user===owner" mat-raised-button color="primary" (click)="startGame()">Start Game</button>
-  <h4>Players</h4>
-  <div fxLayout="row wrap" fxLayoutGap="16px grid">
-    <mat-card *ngFor="let user of users" fxFlex="10%" fxFlex.xs="30%" class="centered">
-        <mat-card-content>
-          <span>{{ user }}</span>
-        </mat-card-content>
-    </mat-card>
-</div>
+  <h2 class="card-content centered-content">Players</h2>
+
+
+  <div fxLayout="row wrap" fxLayoutGap="16px grid" class="card-content centered-content">
+      <mat-card *ngFor="let user of users" fxFlex="20%" fxFlex.xs="30%" class="centered-content card-margin content-all scale-in-center">
+          <mat-card-title class="content-all user-card">
+            {{ user }}
+          </mat-card-title>
+      </mat-card>
+  </div>
+
 </div>
 

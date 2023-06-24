@@ -1,13 +1,25 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Blank Game</span>
-  <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
-</mat-toolbar>
+<div class="color-change-2x full-height">
+  <mat-sidenav-container class="example-container no-border no-background content-height">
+    <mat-sidenav class="lateral-menu lateral-bg difuminado " mode="side" [opened]="opened">
+      <h4>
+        <mat-icon aria-hidden="false" aria-label="Terminal icon" fontIcon="terminal"></mat-icon>
+        Github Repos
+      </h4>
+      <p><a href="https://github.com/MrManoloDG/blank-game-front">Frontend</a></p>
+      <p><a href="https://github.com/MrManoloDG/blank-game-front">Backend</a></p>
+      <span>App Version 1.1.1</span>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar class="no-background navbar-height color-white cen">
+        <button mat-icon-button class="example-icon" (click)="toggleSidenav()" aria-label="Example icon-button with menu icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <a href="{{frontUrl}}"><span>Blank Game</span></a>
+        <span class="example-spacer"></span>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
 
 
-<router-outlet></router-outlet>

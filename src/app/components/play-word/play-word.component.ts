@@ -17,6 +17,10 @@ export class PlayWordComponent implements OnInit {
   user!: string;
   gameData!: any;
   owner!: string;
+
+  userWordMap: any = {};
+
+  users= [];
   switchRevealed(){
     this.isRevealed = !this.isRevealed;
   }
@@ -27,6 +31,8 @@ export class PlayWordComponent implements OnInit {
       this.uuid = obs.get('id') as unknown as string;
       this.gameData = await lastValueFrom(this.gameService.getGame(this.uuid));
       this.owner = this.gameData.createdBy;
+      this.users = this.gameData.users;
+      this.userWordMap = this.gameData.userWordMap;
       await this.updateGameData();
       setInterval(async () => {
         await this.updateGameData();
@@ -43,9 +49,19 @@ export class PlayWordComponent implements OnInit {
       console.log(err);
       this.word = err.error.text;
     });
+
+    lastValueFrom(this.gameService.getGame(this.uuid)).then(res => {
+      console.log(res);
+      this.users = this.gameData.users;
+      this.userWordMap = this.gameData.userWordMap;
+    }, err => {
+      console.log(err);
+      this.word = err.error.text;
+    });
   }
 
   async startGame() {
+    this.isRevealed = false;
     const response = await lastValueFrom(this.gameService.startGame(this.uuid, this.user));
     console.log(response);
   }

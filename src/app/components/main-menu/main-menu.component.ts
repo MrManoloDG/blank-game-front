@@ -5,6 +5,7 @@ import { JoinModalComponent } from './join-modal/join-modal.component';
 import { GameControllerService } from 'src/api/gameController.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-main-menu',
@@ -16,34 +17,65 @@ export class MainMenuComponent {
   constructor(public dialog: MatDialog, public gameService: GameControllerService,
     private router: Router){}
 
-  openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateModalComponent, {
-      data: {},
-    });
-
-    dialogRef.afterClosed().subscribe(async result => {
-      console.log(result);
-      const response = await lastValueFrom(this.gameService.createGame(result.username));
+  async openCreateDialog(): Promise<void> {
+    const blankTotal = await this.selectBlankNumber();
+    const hostUser = `host${console.log(Math.floor(100000 + Math.random() * 900000))}`;
+    const response = await lastValueFrom(this.gameService.createGame(hostUser, blankTotal)) as any;
       console.log('The dialog was closed');
-      sessionStorage.setItem('username', result.username);
-      this.router.navigate([`/wait/${response}`]);
-    });
+      sessionStorage.setItem('username', hostUser);
+      this.router.navigate([`/wait/${response.uuid}`]);
+
   }
 
-  openJoinDialog(): void {
-    const dialogRef = this.dialog.open(JoinModalComponent, {
-      data: {},
-    });
 
-    dialogRef.afterClosed().subscribe(async result => {
+  async selectBlankNumber(){
+    const {value: number} = await Swal.fire({
+      title: 'Select the number of Blank players',
+      input: 'number',
+      inputLabel: 'Number of Blank players',
+      inputPlaceholder: '1',
+      inputValue: 1
+    });
+    return number;
+  }
+
+  async openJoinDialog(): Promise<void> {
+    const username = await this.enterUsername();
+    const gameCode = await this.enterGameCode();
+
+    if(gameCode && username){
       const response = await  lastValueFrom(this.gameService.joinToGame({
-        uuid: result.gameCode,
-        user: result.username
+        uuid: gameCode,
+        user: username
       }));
-      sessionStorage.setItem('username', result.username);
-      this.router.navigate([`/wait/${result.gameCode}`]);
+      sessionStorage.setItem('username', username);
+      this.router.navigate([`/wait/${gameCode}`]);
       console.log('The dialog was closed');
-    });
+    }
+
   }
+
+
+  async enterUsername(){
+    const {value: username} = await Swal.fire({
+      title: 'Enter your username',
+      input: 'text',
+      inputLabel: 'Username',
+      inputPlaceholder: 'Enter your username'
+    });
+    return username;
+  }
+
+  async enterGameCode(){
+    const {value: username} = await Swal.fire({
+      title: 'Enter game code',
+      input: 'text',
+      inputLabel: 'Game Code',
+      inputPlaceholder: 'Enter game code'
+    });
+    return username;
+  }
+
+
 
 }

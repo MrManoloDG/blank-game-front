@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { last, lastValueFrom } from 'rxjs';
+import { from, last, lastValueFrom } from 'rxjs';
 import { GameControllerService } from 'src/api/gameController.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-wait-game',
@@ -17,17 +18,46 @@ export class WaitGameComponent implements OnInit {
   gameData: any;
   users = [];
   owner!: string;
+  joinURL!: string;
   async ngOnInit() {
     this.user = sessionStorage.getItem('username') as unknown as string;
-    this.activatedRoute.paramMap.subscribe(async obs => {
-      this.gameId = obs.get('id') as unknown as string;
-      console.log(this.gameId);
-      await this.updateGameData();
-      setInterval(async () => {
+    this.activatedRoute.queryParams.subscribe(async qparams => {
+      let fromqr: boolean = qparams['fromqr'];
+      console.log(fromqr)
+      this.activatedRoute.paramMap.subscribe(async obs => {
+        this.gameId = obs.get('id') as unknown as string;
+        console.log(this.gameId);
+        this.joinURL = `https://blankgame.duckdns.org/wait/${this.gameId}?fromqr=true`;
+        if(!this.user || fromqr){
+          await this.enterUsername();
+        }
         await this.updateGameData();
-      }, 2000);
-    });
+        setInterval(async () => {
+          await this.updateGameData();
+        }, 2000);
+      });
+
+    })
   }
+
+  async enterUsername(){
+    const {value: username} = await Swal.fire({
+      title: 'Input Username',
+      input: 'text',
+      inputLabel: 'Your username',
+      inputPlaceholder: 'Enter your username'
+    })
+    if(username){
+      const response = await  lastValueFrom(this.gameService.joinToGame({
+        uuid: this.gameId,
+        user: username
+      }));
+      sessionStorage.setItem('username', username);
+    } else {
+      await this.enterUsername();
+    }
+  }
+
 
   async updateGameData(){
     if(this.gameId){

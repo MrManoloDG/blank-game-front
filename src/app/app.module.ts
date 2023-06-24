@@ -14,6 +14,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlayWordComponent } from './components/play-word/play-word.component';
 import { GameControllerService } from 'src/api/gameController.service';
 import { HttpClientModule } from '@angular/common/http';
+import { QRCodeModule } from 'angularx-qrcode';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     MaterialModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    QRCodeModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [GameControllerService],
   bootstrap: [AppComponent]
