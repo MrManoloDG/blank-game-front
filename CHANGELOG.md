@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.2](https://github.com/MrManoloDG/blank-game-front/compare/v0.0.1...v0.0.2) (2023-06-24)
+
+
+### Features
+
+* Added new App Style ([88c413d](https://github.com/MrManoloDG/blank-game-front/commit/88c413d0366eefb32b2fdf09cd0ebdf3b7f46441))
+
 ### 0.0.1 (2023-06-24)
 
 
